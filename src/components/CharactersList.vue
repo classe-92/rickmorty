@@ -1,8 +1,9 @@
 <template>
     <section class="container">
-        <div class="row">
+        <div class="row" v-if="store.characterList.length > 0">
             <CharacterCard v-for="(character, index) in store.characterList" :key="character.id" :character="character" />
         </div>
+        <div v-if="store.error.show" class="alert alert-danger">{{ store.error.message }}</div>
     </section>
 </template>
 
