@@ -55,7 +55,7 @@ export default {
       }
       //console.log(options);
       axios.get(url, options).then((res) => {
-        //store.characterList = res.data.results;
+        store.characterList = res.data.results;
         // setTimeout(() => {
         //   store.loading = false;
         // }, 3000)
@@ -74,7 +74,7 @@ export default {
 
   },
   mounted() {
-    //store.endpoint = 'character';
+    store.endpoint = 'character';
     this.getCharacters();
   }
 
