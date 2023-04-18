@@ -26,8 +26,11 @@
         </div>
       </form>
     </div>
-    <CharactersList />
 
+    <CharactersList />
+    <div v-if="store.errormessage" class="alert alert-danger">
+      {{ store.errormessage }}
+    </div>
   </main>
 </template>
 
@@ -48,16 +51,14 @@ export default {
       statusOptions: [
         'alive',
         'dead',
-        'unknown',
-        'pippo'
+        'unknown'
       ]
     }
   },
   methods: {
     getCharacters() {
-      store.error.show = false;
-      store.error.message = '';
-      store.characterList = [];
+      store.errormessage = '';
+      store.loading = true;
       const url = store.baseUrl + store.endpoint;
       let options = {}
       let params = {}
@@ -66,19 +67,24 @@ export default {
           params[key] = store.search[key]
         }
       }
-      console.log(params);
+      //console.log(params);
       if (Object.keys(params).length > 0) {
         options.params = params;
       }
-      console.log(options);
+      //console.log(options);
       axios.get(url, options).then((res) => {
         store.characterList = res.data.results;
+        // setTimeout(() => {
+        //   store.loading = false;
+        // }, 3000)
+        store.loading = false;
         //console.log(res.data.data);
       }).catch((error) => {
         // handle error
-        console.log(error);
-        store.error.show = true;
-        store.error.message = error;
+        //console.log(error);
+        store.characterList.length = 0;
+        store.loading = false;
+        store.errormessage = error.message;
       });
     }
   },

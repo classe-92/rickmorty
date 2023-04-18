@@ -1,19 +1,21 @@
 <template>
     <section class="container">
-        <div class="row" v-if="store.characterList.length > 0">
+        <div class="row" v-if="!store.loading">
             <CharacterCard v-for="(character, index) in store.characterList" :key="character.id" :character="character" />
         </div>
-        <div v-if="store.error.show" class="alert alert-danger">{{ store.error.message }}</div>
+        <ApiLoader v-else />
     </section>
 </template>
 
 <script>
 import { store } from '../data/store';
 import CharacterCard from './CharacterCard.vue';
+import ApiLoader from './ApiLoader.vue';
 export default {
     name: 'CharactersList',
     components: {
-        CharacterCard
+        CharacterCard,
+        ApiLoader
     },
     data() {
         return {
