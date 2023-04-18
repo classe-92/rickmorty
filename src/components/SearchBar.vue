@@ -11,7 +11,8 @@
                 <label class="visually-hidden" for="searchStatus">Search status</label>
                 <select class="form-select" id="searchStatus" v-model="store.search.status">
                     <option selected value="">Choose...</option>
-                    <option :value="status" v-for="(status, index) in statusOptions" :key="index">{{ status }}</option>
+                    <option :value="status" v-for="(status, index) in statusOptions" :key="index">{{
+                        status }}</option>
                 </select>
             </div>
 
@@ -28,6 +29,7 @@
 
 <script>
 import { store } from '../data/store';
+import axios from 'axios';
 export default {
     name: 'SearchBar',
     data() {
@@ -50,7 +52,14 @@ export default {
             this.$emit('searchChange');
 
         }
-    }
+    },
+    // mounted() {
+    //     axios.get('https://db.ygoprodeck.com/api/v7/archetypes.php').then((res) => {
+    //         console.log(res.data);
+    //         this.statusOptions = res.data;
+    //     })
+    // }
+
 }
 </script>
 
